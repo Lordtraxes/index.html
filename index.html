@@ -21,7 +21,7 @@
       overflow-y: auto;
       position: relative;
       box-shadow: 0 0 20px 5px rgba(0, 255, 0, 0.5);
-      font-size: 30px;  /* Aumento el tamaño del texto a 30px */
+      font-size: 30px;  /* Tamaño de texto en el chat */
     }
     .message {
       margin-bottom: 10px;
@@ -63,7 +63,7 @@
     /* Efecto de letras cayendo tipo Matrix */
     .matrix-letter {
       color: #0f0;
-      font-size: 40px;  /* Aumento el tamaño de las letras a 40px */
+      font-size: 35px;  /* Tamaño de letra ajustado a 35px */
       position: absolute;
       top: 0;
       animation: fall 3s linear infinite;  /* Aseguramos que las letras caigan constantemente */
@@ -94,7 +94,7 @@
       position: absolute;
       top: -30px;
       color: #0f0;
-      font-size: 40px;  /* Aumento el tamaño de las letras a 40px */
+      font-size: 35px;  /* Tamaño ajustado a 35px */
       opacity: 0.9;
       animation: drop 5s linear infinite;
     }
@@ -179,6 +179,20 @@
         }
       });
     };
+
+    // Lluvia constante de caracteres
+    setInterval(() => {
+      const randomLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+      const letterElem = document.createElement('span');
+      letterElem.classList.add('matrix-letter');
+      letterElem.textContent = randomLetter;
+      letterElem.style.left = `${Math.random() * 100}%`;
+      rainBox.appendChild(letterElem);
+
+      setTimeout(() => {
+        rainBox.removeChild(letterElem);
+      }, 5000);
+    }, 200);  // Intervalo de creación de caracteres (frecuencia de letras cayendo)
   </script>
 </body>
 </html>
