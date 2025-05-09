@@ -21,7 +21,7 @@
       overflow-y: auto;
       position: relative;
       box-shadow: 0 0 20px 5px rgba(0, 255, 0, 0.5);
-      font-size: 18px;  /* Aumento el tamaño del texto */
+      font-size: 30px;  /* Aumento el tamaño del texto a 30px */
     }
     .message {
       margin-bottom: 10px;
@@ -63,19 +63,19 @@
     /* Efecto de letras cayendo tipo Matrix */
     .matrix-letter {
       color: #0f0;
-      font-size: 20px;
+      font-size: 40px;  /* Aumento el tamaño de las letras a 40px */
       position: absolute;
       top: 0;
-      animation: fall 5s linear infinite;
+      animation: fall 3s linear infinite;  /* Aseguramos que las letras caigan constantemente */
     }
 
     @keyframes fall {
       0% {
-        top: -100px;
+        top: -30px;
         opacity: 1;
       }
       100% {
-        top: 100vh;
+        top: 100%;
         opacity: 0;
       }
     }
@@ -94,7 +94,7 @@
       position: absolute;
       top: -30px;
       color: #0f0;
-      font-size: 20px;
+      font-size: 40px;  /* Aumento el tamaño de las letras a 40px */
       opacity: 0.9;
       animation: drop 5s linear infinite;
     }
