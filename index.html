@@ -9,7 +9,7 @@
     body {
       background-color: #000;
       color: #0f0;
-      font-family: monospace;
+      font-family: 'Courier New', monospace;
       margin: 0;
       padding: 10px;
       overflow-y: scroll;
@@ -19,9 +19,14 @@
       padding: 10px;
       max-height: 95vh;
       overflow-y: auto;
+      position: relative;
+      box-shadow: 0 0 20px 5px rgba(0, 255, 0, 0.5);
     }
     .message {
+      font-size: 12px;
       margin-bottom: 5px;
+      position: relative;
+      z-index: 2;
     }
     .timestamp {
       color: #0a0;
@@ -31,13 +36,63 @@
       color: #0ff;
       margin-right: 5px;
     }
+    .matrix-effect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      pointer-events: none;
+      animation: matrix 3s infinite;
+      opacity: 0.2;
+    }
+
+    @keyframes matrix {
+      0% {
+        transform: translateY(-100%);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(100%);
+        opacity: 0.1;
+      }
+    }
+
+    /* Letras cayendo estilo matrix */
+    .matrix-letter {
+      color: #0f0;
+      font-size: 18px;
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        top: -20px;
+        opacity: 1;
+      }
+      100% {
+        top: 100vh;
+        opacity: 0;
+      }
+    }
+
   </style>
 </head>
 <body>
-  <div class="chat" id="chat"></div>
+  <div class="chat" id="chat">
+    <div class="matrix-effect">
+      <span class="matrix-letter">M</span>
+      <span class="matrix-letter">A</span>
+      <span class="matrix-letter">T</span>
+      <span class="matrix-letter">R</span>
+      <span class="matrix-letter">I</span>
+      <span class="matrix-letter">X</span>
+    </div>
+  </div>
 
   <script>
-    const channel = 'lordtraxes';
+    const channel = 'lordtraxes'; // Cambia a tu canal de Twitch
     const chatBox = document.getElementById('chat');
 
     const ws = new WebSocket('wss://irc-ws.chat.twitch.tv:443');
@@ -66,8 +121,17 @@
           const now = new Date();
           const timestamp = now.toLocaleTimeString();
 
+          // Filtrar comandos
+          if (message.startsWith('!')) return;
+
           const msgElem = document.createElement('div');
           msgElem.classList.add('message');
+
+          // Diferenciar tus mensajes
+          if (user.toLowerCase() === 'lordtraxes') {
+            msgElem.style.color = '#f0f'; // Color rosado para tus mensajes
+          }
+
           msgElem.innerHTML = `<span class="timestamp">[${timestamp}]</span><span class="username">${user}:</span> ${message}`;
 
           chatBox.appendChild(msgElem);
